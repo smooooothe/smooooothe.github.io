@@ -1,6 +1,6 @@
 ---
-import { selectedWorks } from "../data/projects";
 import WorkCard from "./WorkCard.astro";
+import { getSelectedWorks } from "../data/localizedProjects";
 import { translations } from "../data/translations";
 import type { Language } from "../data/translations";
 
@@ -10,6 +10,7 @@ interface Props {
 
 const { lang = "ru" } = Astro.props;
 const t = translations[lang];
+const selectedWorks = getSelectedWorks(lang);
 ---
 
 <section

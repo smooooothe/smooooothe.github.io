@@ -1,5 +1,4 @@
 ---
-import { aiCreatorCards } from "../data/projects";
 import { site } from "../data/site";
 import { translations } from "../data/translations";
 import type { Language } from "../data/translations";
@@ -11,7 +10,7 @@ interface Props {
 const { lang = "ru" } = Astro.props;
 const t = translations[lang];
 
-const higgsfieldPieces = [
+const enHiggsfieldPieces = [
   {
     label: "Ember Coffee — local-business ad",
     concept: "Vertical ad · hook → offer → CTA",
@@ -54,7 +53,7 @@ const higgsfieldPieces = [
   },
 ] as const;
 
-const comfyPieces = [
+const enComfyPieces = [
   {
     label: "AURELIA — image-to-video",
     concept: "i2v motion · variant selection",
@@ -101,7 +100,7 @@ const comfyPieces = [
   },
 ] as const;
 
-const flagshipFilms = [
+const enFlagshipFilms = [
   {
     label: "SIGNAL",
     tagline: "FictioFactori brand film — \u201cwe build the signal\u201d",
@@ -127,6 +126,127 @@ const flagshipFilms = [
     ratio: "16 / 9",
   },
 ] as const;
+
+const ruHiggsfieldPieces = [
+  {
+    label: "Ember Coffee — реклама локального бизнеса",
+    concept: "Вертикальная реклама · hook → offer → CTA",
+    engine: "Higgsfield · Seedance 2.0",
+    detail:
+      "Реклама локального кафе из 5 shots: уютный shop-hook, продуктовые beats и offer «вы в 3 минутах» с on-screen subtitles + CTA. Voiceover приглушен поверх ambience bed. Self-score 94.",
+    src: "/media/ai-creator/tz1-ember-coffee.mp4",
+    poster: "/media/ai-creator/tz1-ember-coffee.jpg",
+    meta: "9:16 · 28с · 5 shots",
+  },
+  {
+    label: "NOIR ÉCLAT — кинематографичный продукт",
+    concept: "Cinematic product · luxury grade",
+    engine: "Higgsfield · Seedance 2.0",
+    detail:
+      "Шесть продуктовых keyframes удержаны стабильно во всех ракурсах, затем dolly / orbit / push-in i2v. Выпущено в двух color grades (Warm Gold / Cool Noir), двух aspect ratios и social cut — bed + VO. Self-score 95.",
+    src: "/media/ai-creator/tz2-noir-eclat.mp4",
+    poster: "/media/ai-creator/tz2-noir-eclat.jpg",
+    meta: "9:16 · 16с · luxury grade",
+  },
+  {
+    label: "Sharp & Co. — консистентный персонаж",
+    concept: "Consistent character · identity hold",
+    engine: "Higgsfield · keyframe-locked i2v",
+    detail:
+      "Один барбер перенесен через 5-сценную рекламу реального barbershop через keyframe identity lock — лицо и одежда держатся shot-to-shot. Voiceover + ambience bed. Self-score 95.",
+    src: "/media/ai-creator/tz3-sharp-co.mp4",
+    poster: "/media/ai-creator/tz3-sharp-co.jpg",
+    meta: "9:16 · 25с · 5 сцен",
+  },
+  {
+    label: "AETHER — logo reveal / motion design",
+    concept: "Motion design · kinetic logo reveal",
+    engine: "Higgsfield plates → deterministic type",
+    detail:
+      "Hybrid reveal: Higgsfield energy plates задают motion, поверх — razor-sharp deterministic kinetic typography и designed sound (whoosh → impact → drone). Loop-friendly, 9:16 + 16:9, solid + transparent end cards. Self-score 94.",
+    src: "/media/ai-creator/tz4-aether-logo.mp4",
+    poster: "/media/ai-creator/tz4-aether-logo.jpg",
+    meta: "9:16 · 9с · 2 AR",
+  },
+] as const;
+
+const ruComfyPieces = [
+  {
+    label: "AURELIA — image-to-video",
+    concept: "i2v motion · выбор варианта",
+    engine: "Comfy Cloud · Seedance i2v",
+    detail:
+      "Still hero приведен в движение через 3 camera variants; в финальный cut выбран push-in. Кастомный stable-audio-2.5 bed + tagline VO. Self-score 91.",
+    src: "/media/ai-creator/tz5-aurelia.mp4",
+    poster: "/media/ai-creator/tz5-aurelia.jpg",
+    meta: "16:9 · 8с",
+    ratio: "16 / 9",
+  },
+  {
+    label: "Pedestal Reveal — первый / последний кадр",
+    concept: "Контроль first → last frame",
+    engine: "Comfy Cloud · Seedance first/last",
+    detail:
+      "Контролируемый product reveal, построенный на зафиксированных первом и последнем keyframes для точного end state — не hope-and-pray prompt. Bed + reveal VO. Self-score 88.",
+    src: "/media/ai-creator/tz6-pedestal-reveal.mp4",
+    poster: "/media/ai-creator/tz6-pedestal-reveal.jpg",
+    meta: "16:9 · 5с",
+    ratio: "16 / 9",
+  },
+  {
+    label: "Fashion-House Identity Lock — consistency ad",
+    concept: "Одна женщина · 3 образа · 2 локации",
+    engine: "Comfy Cloud · nano-banana refs + seedance i2v",
+    detail:
+      "Premium fashion-house film, построенный как proof identity: новый персонаж сгенерирован на сильной модели и зафиксирован как canonical hero, удерживаясь через три смены wardrobe в квартире и еще две локации. Voiceover + stable-audio score, без subtitles. Поставляется с consistency proof grid.",
+    src: "/media/ai-creator/tz7-character.mp4",
+    poster: "/media/ai-creator/tz7-character.jpg",
+    meta: "9:16 · 17с",
+    ratio: "9 / 16",
+  },
+  {
+    label: "VOLT — модульная кампания",
+    concept: "Modular campaign · один reusable graph",
+    engine: "Comfy Cloud · single reusable workflow",
+    detail:
+      "Трехчастная вертикальная кампания — hook (6с) / demo (10с) / CTA (8с) — из одного reusable workflow с shared sonic branding. Здесь показан demo; вместе поставляются 3 covers и asset→goal→CTA table. Self-score 89.",
+    src: "/media/ai-creator/tz8-volt-campaign.mp4",
+    poster: "/media/ai-creator/tz8-volt-campaign.jpg",
+    meta: "9:16 · hook / demo / CTA",
+    ratio: "9 / 16",
+  },
+] as const;
+
+const ruFlagshipFilms = [
+  {
+    label: "SIGNAL",
+    tagline: "Brand film FictioFactori — «мы строим сигнал»",
+    concept: "Cinematic · directed multi-shot · identity continuity",
+    engine: "Higgsfield · GPT Image 2 → Nano Banana 2 → Seedance 2.0",
+    pipeline:
+      "3-stage keyframe lock: hero keyframe из GPT Image 2 → per-shot Nano Banana 2 keyframes (hero передан как reference) → Seedance 2.0 i2v. Identity Архитектора и acid-lime shard удерживаются во всех 5 directed shots без rerolls. Финальный cut скорится voiceover, приглушенным поверх music bed.",
+    src: "/media/ai-creator/flagship-signal-higgsfield.mp4",
+    poster: "/media/ai-creator/flagship-signal-higgsfield.jpg",
+    meta: "9:16 · 25с · 5 shots · scored",
+    ratio: "9 / 16",
+  },
+  {
+    label: "NOVA — Signal in the Noise",
+    tagline: "Character brand-film — consistency pipeline",
+    concept: "Character lock · reference-edit pipeline · 4-shot arc",
+    engine: "Comfy Cloud · Nano Banana keyframes → Seedance i2v → assemble.py",
+    pipeline:
+      "Один canonical hero keyframe, затем 3 angle/expression keyframes отредактированы от исходного hero (без chaining), чтобы убрать drift. Identity держится 4/4 shots; continuity-object pendant развивается dark → blaze через cut. Финальный cut скорится 4-line voiceover поверх synthwave bed.",
+    src: "/media/ai-creator/flagship-nova-comfy.mp4",
+    poster: "/media/ai-creator/flagship-nova-comfy.jpg",
+    meta: "16:9 · 16с · 4 shots · scored",
+    ratio: "16 / 9",
+  },
+] as const;
+
+const higgsfieldPieces = lang === "ru" ? ruHiggsfieldPieces : enHiggsfieldPieces;
+const comfyPieces = lang === "ru" ? ruComfyPieces : enComfyPieces;
+const flagshipFilms = lang === "ru" ? ruFlagshipFilms : enFlagshipFilms;
 ---
 
 <section
@@ -262,7 +382,7 @@ const flagshipFilms = [
         <h3 class="mt-2 text-[1.8rem] leading-[0.95]">{t.aiCreator.creatorCards.contentLab.title}</h3>
         <p class="mt-3 flex-1 text-sm leading-relaxed text-dim">{t.aiCreator.creatorCards.contentLab.description}</p>
         <p class="mt-6 font-mono text-xs uppercase tracking-wider text-acid/80">
-          {lang === "ru" ? "Evidence-first creator system" : "Evidence-first creator system"}
+          {lang === "ru" ? "Creator-система с доказательствами" : "Evidence-first creator system"}
         </p>
       </article>
       <article class="ui-card scroll-reveal flex flex-col p-6">
@@ -270,7 +390,7 @@ const flagshipFilms = [
         <h3 class="mt-2 text-[1.8rem] leading-[0.95]">{t.aiCreator.creatorCards.workflowDemos.title}</h3>
         <p class="mt-3 flex-1 text-sm leading-relaxed text-dim">{t.aiCreator.creatorCards.workflowDemos.description}</p>
         <p class="mt-6 font-mono text-xs uppercase tracking-wider text-acid/80">
-          {lang === "ru" ? "Evidence-first creator system" : "Evidence-first creator system"}
+          {lang === "ru" ? "Creator-система с доказательствами" : "Evidence-first creator system"}
         </p>
       </article>
       <article class="ui-card scroll-reveal flex flex-col p-6">
@@ -278,7 +398,7 @@ const flagshipFilms = [
         <h3 class="mt-2 text-[1.8rem] leading-[0.95]">{t.aiCreator.creatorCards.tooling.title}</h3>
         <p class="mt-3 flex-1 text-sm leading-relaxed text-dim">{t.aiCreator.creatorCards.tooling.description}</p>
         <p class="mt-6 font-mono text-xs uppercase tracking-wider text-acid/80">
-          {lang === "ru" ? "Evidence-first creator system" : "Evidence-first creator system"}
+          {lang === "ru" ? "Creator-система с доказательствами" : "Evidence-first creator system"}
         </p>
       </article>
     </div>
