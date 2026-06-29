@@ -1,0 +1,106 @@
+---
+import "../styles/global.css";
+import type { Language } from "../data/translations";
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: Language;
+}
+
+const {
+  title = "Smoothe — AI product builder",
+  description = "AI product builder with a shipped SaaS anchor, automation systems, and creator-grade documentation.",
+  lang = "ru",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#09090b" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <title>{title}</title>
+  </head>
+  <body class="site-shell min-h-screen">
+    <div class="noise-overlay" aria-hidden="true"></div>
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:border focus:px-4 focus:py-2 focus:font-mono focus:text-xs focus:uppercase focus:tracking-[0.1em]"
+    >
+      <span id="skip-text">{lang === "ru" ? "Перейти к контенту" : "Skip to content"}</span>
+    </a>
+    <div class="content-layer">
+      <slot />
+    </div>
+    <script is:inline>
+      // Initialize language on page load
+      const urlParams = new URLSearchParams(window.location.search);
+      const lang = urlParams.get("lang") || localStorage.getItem("preferred-language") || "ru";
+      document.documentElement.lang = lang === "ru" ? "ru" : "en";
+
+      // Update skip link text based on language
+      function updateSkipText() {
+        const currentLang = document.documentElement.lang;
+        const skipText = document.getElementById("skip-text");
+        if (skipText) {
+          skipText.textContent = currentLang === "ru" ? "Перейти к контенту" : "Skip to content";
+        }
+      }
+
+      // Listen for language changes
+      window.addEventListener("storage", (e) => {
+        if (e.key === "preferred-language") {
+          updateSkipText();
+        }
+      });
+
+      // Initial update
+      updateSkipText();
+
+      const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReduced) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            for (const entry of entries) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+              }
+            }
+          },
+          { threshold: 0.16 }
+        );
+
+        document.querySelectorAll(".scroll-reveal").forEach((el) => observer.observe(el));
+
+        const parallaxElements = Array.from(document.querySelectorAll(".parallax-soft"));
+        let raf = null;
+        const updateParallax = () => {
+          const offset = window.scrollY * 0.06;
+          for (const el of parallaxElements) {
+            el.style.transform = `translate3d(0, ${offset}px, 0)`;
+          }
+          raf = null;
+        };
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (raf === null) {
+              raf = requestAnimationFrame(updateParallax);
+            }
+          },
+          { passive: true }
+        );
+      } else {
+        document.querySelectorAll(".scroll-reveal").forEach((el) => el.classList.add("is-visible"));
+      }
+    </script>
+  </body>
+</html>

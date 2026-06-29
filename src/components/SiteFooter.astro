@@ -1,0 +1,34 @@
+---
+import { site } from "../data/site";
+import { translations } from "../data/translations";
+import type { Language } from "../data/translations";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "ru" } = Astro.props;
+const t = translations[lang];
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-white/5 py-8">
+  <div
+    class="mx-auto flex w-full max-w-[90rem] flex-col items-center justify-between gap-4 px-4 text-sm text-dim sm:flex-row sm:px-6 lg:px-8"
+  >
+    <p>© {year} {site.name}. {t.footer.builtWith}</p>
+    <nav class="font-mono flex flex-wrap items-center justify-center gap-4 text-[11px] uppercase tracking-[0.11em]" aria-label="Footer">
+      <a href={site.emailHref} class="hover:text-acid">{site.email}</a>
+      <a href={site.telegram} target="_blank" rel="noopener noreferrer" class="hover:text-acid">
+        TG @{site.telegramHandle}
+      </a>
+      <a href={site.github} target="_blank" rel="noopener noreferrer" class="hover:text-acid">
+        GitHub @{site.handle}
+      </a>
+      <a href="#case-studies" class="hover:text-acid">{t.nav.caseStudies}</a>
+      <a href="#contact" class="hover:text-acid">{t.nav.contact}</a>
+      <a href="#featured" class="hover:text-acid">MWCC</a>
+    </nav>
+  </div>
+</footer>

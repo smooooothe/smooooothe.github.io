@@ -1,0 +1,66 @@
+---
+import { site } from "../data/site";
+import { translations } from "../data/translations";
+import type { Language } from "../data/translations";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "ru" } = Astro.props;
+const t = translations[lang];
+---
+
+<section class="section-shell overflow-hidden border-t-0 pb-16 pt-10 lg:pb-24 lg:pt-14" aria-labelledby="hero-heading">
+  <div class="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+    <div class="scroll-reveal">
+      <p class="section-kicker">{t.hero.kicker}</p>
+      <h1 id="hero-heading" class="hero-type">
+        <span class="split-reveal">{t.hero.title[0]}</span><br />
+        <span class="split-reveal" data-delay="1">{t.hero.title[1]}</span><br />
+        <span class="split-reveal" data-delay="2">{t.hero.title[2]}</span>
+      </h1>
+      <p class="mt-6 max-w-[58ch] text-dim">
+        {t.hero.description}
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-2" aria-label="Primary stack keywords">
+        {
+          t.hero.tags.map((tag) => (
+            <span class="ui-badge">{tag}</span>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#featured" class="ui-btn ui-btn-primary">{t.hero.viewFlagship}</a>
+        <a href="#contact-client" class="ui-btn ui-btn-ghost">{t.hero.startProject}</a>
+      </div>
+    </div>
+
+    <aside class="scroll-reveal ui-panel parallax-soft p-4 lg:p-6" aria-label="Hero direction panel">
+      <p class="section-kicker">{t.hero.visualAnchor}</p>
+      <figure class="ui-panel overflow-hidden">
+        <img
+          src="/media/portfolio/hero-tactile-brutalist-2026.webp"
+          alt={lang === "ru" ? "Bespoke AI-generated abstract hero visual in dark editorial-tech style" : "Bespoke AI-generated abstract hero visual in dark editorial-tech style"}
+          class="aspect-[4/5] w-full object-cover"
+          loading="eager"
+          decoding="async"
+        />
+      </figure>
+      <div class="mt-4 grid gap-4 sm:grid-cols-2">
+        <div class="ui-card p-3">
+          <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-dim">{t.hero.source}</p>
+          <p class="mt-2 text-sm">{t.hero.aiGeneratedHero}</p>
+        </div>
+        <div class="ui-card p-3">
+          <p class="font-mono text-[11px] uppercase tracking-[0.12em] text-dim">{t.hero.contact}</p>
+          <a href={site.github} target="_blank" rel="noopener noreferrer" class="mt-2 block text-sm text-acid hover:underline">
+            @{site.handle}
+          </a>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>

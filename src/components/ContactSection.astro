@@ -1,0 +1,78 @@
+---
+import { site } from "../data/site";
+import { translations } from "../data/translations";
+import type { Language } from "../data/translations";
+
+interface Props {
+  lang?: Language;
+}
+
+const { lang = "ru" } = Astro.props;
+const t = translations[lang];
+---
+
+<section
+  id="contact"
+  class="section-shell"
+  aria-labelledby="contact-heading"
+>
+  <header class="section-header scroll-reveal">
+    <span class="section-number">{t.contact.sectionNumber}</span>
+    <div>
+      <p class="section-kicker">{t.contact.kicker}</p>
+      <h2 id="contact-heading" class="section-title">{t.contact.title}</h2>
+      <p class="mt-3 text-dim">
+        {t.contact.description}
+      </p>
+      <p class="mt-3 text-sm text-dim">
+        {t.contact.directChannels}
+        <a href={site.emailHref} class="text-acid hover:underline">{site.email}</a>
+        ·
+        <a href={site.telegram} target="_blank" rel="noopener noreferrer" class="text-acid hover:underline">Telegram @{site.telegramHandle}</a>
+      </p>
+    </div>
+  </header>
+
+  <div class="mx-auto mt-6 grid max-w-5xl gap-4 sm:grid-cols-2">
+      <a
+        id="contact-hire"
+        href={site.emailHref}
+        class="ui-card scroll-reveal group flex min-h-[11rem] flex-col justify-between p-6"
+      >
+        <div>
+          <h3 class="text-[2rem] leading-[0.95]">{t.contact.hireMe.title}</h3>
+          <p class="mt-2 text-sm text-dim">
+            {t.contact.hireMe.description}
+          </p>
+        </div>
+        <span class="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-acid group-hover:underline">{t.contact.hireMe.cta.replace("{email}", site.email)} →</span>
+      </a>
+
+      <a
+        id="contact-client"
+        href={site.telegram}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="ui-cta scroll-reveal group flex min-h-[11rem] flex-col justify-between p-6"
+      >
+        <div>
+          <h3 class="text-[2rem] leading-[0.95]">{t.contact.workWithMe.title}</h3>
+          <p class="mt-2 text-sm text-dim">
+            {t.contact.workWithMe.description}
+          </p>
+        </div>
+        <span class="mt-6 font-mono text-xs uppercase tracking-[0.12em] group-hover:underline">{t.contact.workWithMe.cta.replace("{handle}", site.telegramHandle)} →</span>
+      </a>
+  </div>
+
+  <div class="scroll-reveal mt-10 text-center">
+      <p class="text-sm text-dim">
+        {t.contact.activeChannels}
+        <a href={site.emailHref} class="text-acid hover:underline">{site.email}</a>
+        <span class="px-1 text-line">·</span>
+        <a href={site.telegram} target="_blank" rel="noopener noreferrer" class="text-acid hover:underline">Telegram @{site.telegramHandle}</a>
+        <span class="px-1 text-line">·</span>
+        <a href={site.github} target="_blank" rel="noopener noreferrer" class="text-acid hover:underline">GitHub @{site.handle}</a>
+      </p>
+  </div>
+</section>

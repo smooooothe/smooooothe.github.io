@@ -1,17 +1,42 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import Hero from "../components/Hero.astro";
+import FeaturedProject from "../components/FeaturedProject.astro";
+import CaseStudiesSection from "../components/CaseStudiesSection.astro";
+import WorkGrid from "../components/WorkGrid.astro";
+import AICreatorSection from "../components/AICreatorSection.astro";
+import AgencyStorySection from "../components/AgencyStorySection.astro";
+import ProofAbout from "../components/ProofAbout.astro";
+import ContactSection from "../components/ContactSection.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { site } from "../data/site";
+import { translations } from "../data/translations";
+import type { Language } from "../data/translations";
 
+// Get language from URL query param
+const url = new URL(Astro.request.url);
+const langParam = url.searchParams.get("lang");
+const lang: Language = langParam === "en" ? "en" : "ru";
+
+const t = translations[lang];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title={`${site.name} — ${lang === "ru" ? "AI-продуктовый инженер · FictioFactori" : "AI product builder · FictioFactori"}`}
+  description={t.site.positioning}
+  lang={lang}
+>
+  <SiteHeader lang={lang} />
+  <main id="main">
+    <Hero lang={lang} />
+    <FeaturedProject lang={lang} />
+    <CaseStudiesSection lang={lang} />
+    <WorkGrid lang={lang} />
+    <AgencyStorySection lang={lang} />
+    <AICreatorSection lang={lang} />
+    <ProofAbout lang={lang} />
+    <ContactSection lang={lang} />
+  </main>
+  <SiteFooter lang={lang} />
+</BaseLayout>

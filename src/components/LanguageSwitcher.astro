@@ -1,0 +1,88 @@
+---
+import type { Language } from "../data/translations";
+
+interface Props {
+  currentLang: Language;
+}
+
+const { currentLang } = Astro.props;
+---
+
+<div class="flex items-center gap-1" role="radiogroup" aria-label="Language selector">
+  <a
+    href="?lang=ru"
+    class={`px-2 py-1 font-mono text-[11px] uppercase tracking-[0.12em] transition ${
+      currentLang === "ru"
+        ? "text-white bg-white/10 rounded"
+        : "text-dim hover:text-white"
+    }`}
+    aria-checked={currentLang === "ru" ? "true" : "false"}
+    role="radio"
+    data-lang="ru"
+  >
+    RU
+  </a>
+  <span class="text-dim text-xs">/</span>
+  <a
+    href="?lang=en"
+    class={`px-2 py-1 font-mono text-[11px] uppercase tracking-[0.12em] transition ${
+      currentLang === "en"
+        ? "text-white bg-white/10 rounded"
+        : "text-dim hover:text-white"
+    }`}
+    aria-checked={currentLang === "en" ? "true" : "false"}
+    role="radio"
+    data-lang="en"
+  >
+    EN
+  </a>
+</div>
+
+<script>
+  import { languageStore, setLanguage } from "../stores/language";
+  import type { Language } from "../data/translations";
+
+  // Handle language switching via URL params and store
+  const params = new URLSearchParams(window.location.search);
+  const urlLang = params.get("lang") as Language | null;
+
+  // If URL has lang param, use it and store it
+  if (urlLang && (urlLang === "ru" || urlLang === "en")) {
+    setLanguage(urlLang);
+  }
+
+  // Update URL when language changes in store
+  languageStore.subscribe((lang) => {
+    const currentParams = new URLSearchParams(window.location.search);
+    const currentLang = currentParams.get("lang");
+
+    // Only update URL if it differs from current param
+    if (currentLang !== lang) {
+      if (lang === "ru") {
+        // Remove lang param for default (Russian)
+        currentParams.delete("lang");
+      } else {
+        currentParams.set("lang", lang);
+      }
+
+      const newUrl =
+        window.location.pathname +
+        (currentParams.toString() ? `?${currentParams.toString()}` : "") +
+        window.location.hash;
+
+      window.history.replaceState({}, "", newUrl);
+    }
+
+    // Update document lang attribute
+    document.documentElement.lang = lang === "ru" ? "ru" : "en";
+  });
+
+  // Handle click events on language links
+  document.querySelectorAll("[data-lang]").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const lang = (e.currentTarget as HTMLElement).dataset.lang as Language;
+      setLanguage(lang);
+    });
+  });
+</script>
