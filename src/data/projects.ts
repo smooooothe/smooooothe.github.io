@@ -104,14 +104,14 @@ export const selectedWorks: Project[] = [
   },
   {
     id: "brows-cards",
-    title: "brows_cards",
-    tagline: "Brow master card series",
+    title: "Beauty Visualization Pipeline",
+    tagline: "Reusable beauty-industry visual and infographic process",
     outcome:
-      "Finished vertical card series with deterministic Cyrillic labels and reusable creative production scripts.",
+      "Reusable production process for vertical beauty visuals: service cards, infographics, deterministic Cyrillic labels, layout grids, and repeatable asset preparation across beauty niches.",
     problem:
-      "Generative pipelines often drift on text and layout — needed a clean, repeatable output system.",
-    stack: ["Python", "PIL", "Generative pipeline"],
-    role: "Pipeline design + QC",
+      "Beauty content needs clean presentation, readable text, and repeatable layout; the workflow had to generalize beyond brows into services, products, and educational infographics.",
+    stack: ["Python", "PIL", "Beauty infographics", "Generative pipeline"],
+    role: "Production pipeline + visual QC",
     accent: "#34d399",
     thumbnail: {
       src: "/media/portfolio/work-brows-cardgrid-2026.webp",
