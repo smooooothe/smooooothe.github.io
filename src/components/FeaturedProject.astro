@@ -66,7 +66,13 @@ const t = translations[lang];
       </div>
 
       <div class="mt-6 flex flex-wrap gap-3">
-        {featured.links?.map((link) => <a href={link.href} class="ui-btn ui-btn-ghost">{t.featured.liveSite}</a>)}
+        {
+          featured.links?.map((link) => (
+            <a href={link.href} class="ui-btn ui-btn-ghost">
+              {link.label === "Live site" ? t.featured.liveSite : link.label}
+            </a>
+          ))
+        }
       </div>
     </div>
   </article>
